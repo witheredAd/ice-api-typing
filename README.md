@@ -1,4 +1,4 @@
-# ice-api-typing
+# ice-api-typing [![release candidate](https://img.shields.io/npm/v/ice-api-typing)](https://www.npmjs.com/package/ice-api-typing)
 
 A library that provides a way to schema APIs in ts-based front-end projects, with full type support, including:
 
