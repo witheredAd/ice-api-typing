@@ -1,0 +1,45 @@
+{
+  "name": "ice-api-typing",
+  "version": "0.0.1",
+  "description": "A library that provides a way to schema APIs in ts-based front-end projects, with full type supported, including run-time result type check, statical request type & url pattern check. All based on TypeScript's type system.",
+  "author": "witheredleaf",
+  "homepage": "http://icedata.top/documents/ice-api-typing.html",
+  "license": "ISC",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "main": "index.js",
+  "module": "dist/index.mjs",
+  "browser": "dist/index.min.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "node": {
+        "import": "./dist/index.mjs",
+        "require": {
+          "production": "./dist/index.cjs",
+          "development": "./dist/index.cjs",
+          "default": "./index.js"
+        }
+      },
+      "import": "./dist/index.mjs",
+      "require": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "keywords": [
+    "library",
+    "API",
+    "type",
+    "front end"
+  ],
+  "scripts": {
+    "build": "vite build && tsc"
+  },
+  "devDependencies": {
+    "axios": "^1.6.2",
+    "vite": "^5.0.10"
+  }
+}
