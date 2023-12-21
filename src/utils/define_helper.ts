@@ -1,5 +1,6 @@
 import {defineProtocolCaller} from "../core";
-import {AxiosResponse} from "axios";
+import {type AxiosResponse} from "axios";
+export {type AxiosResponse} from 'axios'
 
 export type TerminalProtocol = {
     result: any,
