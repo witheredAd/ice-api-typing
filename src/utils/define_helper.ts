@@ -49,20 +49,42 @@ export type ExtractTerminalProtocol<T extends ProtocolDefine | TerminalProtocol,
             ExtractTerminalProtocol<T[D], E> : never
         : T
 
-export type ConstructorToTsType<T> = {
-    [K in keyof T]:
-    T[K] extends NumberConstructor ? number
-        : T[K] extends StringConstructor ? string
-            : T[K] extends BooleanConstructor ? boolean
-                : T[K] extends ArrayConstructor ? Array<any>
-                    : T[K] extends ObjectConstructor ? object
-                        : T[K] extends DateConstructor ? InstanceType<typeof Date>
-                            : T[K] extends {new: () => infer U} ? U
-                                : T[K] extends Array<infer I> ? I
-                                    : ConstructorToTsType<T[K]>
+export const _ice_TsType: unique symbol = Symbol()
+export class TsType<T> {
+    flag = _ice_TsType
 }
 
+export type PrimitiveConstructor =
+      NumberConstructor
+    | StringConstructor
+    | BooleanConstructor
+    | ArrayConstructor
+    | ObjectConstructor
 
+export type TerminalConstructorToTsType<T extends PrimitiveConstructor> =
+    T extends NumberConstructor ? number
+:   T extends StringConstructor ? string
+:   T extends BooleanConstructor ? boolean
+:   T extends ArrayConstructor ? Array<any>
+:   T extends ObjectConstructor ? {[key: string]: any}
+:   never
+
+export type HatConstructorToTsType<T> =
+    T extends
+          PrimitiveConstructor ? TerminalConstructorToTsType<T>
+        : ConstructorToTsType<T>
+
+
+export type ConstructorToTsType<T> =
+    {
+        [K in keyof T]:
+        T[K] extends
+            PrimitiveConstructor ? TerminalConstructorToTsType<T[K]>
+        : T[K] extends abstract new (...args: any) => infer U ?
+            InstanceType<T[K]> extends TsType<infer X> ? X : U
+        : T[K] extends Array<infer I> ? HatConstructorToTsType<I>
+        : HatConstructorToTsType<T[K]>
+    }
 export class ProtocolDefinitionHelper<T extends ProtocolDefine | TerminalProtocol> {
     protocol_definition: T;
     constructor(p_d: T) {

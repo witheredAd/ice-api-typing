@@ -7,7 +7,7 @@ import type {
     ProtocolDefine,
     TerminalProtocol
 } from "./utils/define_helper";
-import {ProtocolDefinitionHelper, ProtocolNamedDefinitionHelper} from "./utils/define_helper";
+import {ProtocolDefinitionHelper, ProtocolNamedDefinitionHelper, TsType} from "./utils/define_helper";
 
 
 
@@ -73,6 +73,11 @@ export function defineProtocolCaller<T extends ProtocolDefinitionHelper<any>>(pr
                     console.error(
                         `[api-typing] Property '${key}' is given ${typeof data[key]}, but defined ${expect_type} (checking interface '${name}')`)
                 }
+            } else if (constrain[key] === TsType) {
+                // TsType, do no checks
+            } else if (Array.isArray(constrain[key])) {
+                // Union Type ([a, b])
+                console.warn(`[api-typing] ice-api-typing currently does not support union types run-time check (checking interface '${name}')`)
             } else {
                 checkType(data[key], constrain[key], name)
             }
