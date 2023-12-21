@@ -1,9 +1,9 @@
 {
   "name": "ice-api-typing",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A library that provides a way to schema APIs in ts-based front-end projects, with full type supported, including run-time result type check, statical request type & url pattern check. All based on TypeScript's type system.",
   "author": "witheredleaf",
-  "homepage": "http://icedata.top/documents/ice-api-typing.html",
+  "homepage": "http://icedata.top/articles/ice-api-typing.html",
   "repository": "https://github.com/witheredAd/ice-api-typing",
   "license": "ISC",
   "files": [
